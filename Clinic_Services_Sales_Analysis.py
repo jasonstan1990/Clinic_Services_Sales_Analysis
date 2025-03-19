@@ -63,13 +63,17 @@ col1.metric(label="💰 Συνολικά Έσοδα", value=f"€{total_revenue}
 col2.metric(label="👥 Συνολικοί Πελάτες", value=total_patients)
 
 # Υπολογισμός συνολικής δαπάνης ανά πελάτη
-total_spend_per_patient = filtered_df.groupby("Όνομα Πελάτη")["Αξία Υπηρεσίας"].sum()
+total_spend_per_patient = filtered_df.groupby("Όνομα Πελάτη")["Αξία Υπηρεσίας"].sum().reset_index()
 
-# Δημιουργία νέας στήλης με τη συνολική δαπάνη
-filtered_df["Συνολική Δαπάνη"] = filtered_df["Όνομα Πελάτη"].map(total_spend_per_patient)
+# Αντιστοιχία της συνολικής δαπάνης στον αρχικό πίνακα με χρήση merge
+filtered_df = filtered_df.merge(total_spend_per_patient[["Όνομα Πελάτη", "Αξία Υπηρεσίας"]], 
+                                 on="Όνομα Πελάτη", 
+                                 suffixes=("", "_Συνολική"))
 
+# Εμφάνιση των δεδομένων
 st.write("### 📊 Συνολική Δαπάνη Ανά Ασθενή")
-st.dataframe(filtered_df[["Όνομα Πελάτη", "Συνολική Δαπάνη"]])
+st.dataframe(filtered_df[["Όνομα Πελάτη", "Αξία Υπηρεσίας_Συνολική"]])
+
 
 # Ανάλυση κατά υπηρεσία
 st.write("### 📈 Ανάλυση Εσόδων ανά Υπηρεσία")
