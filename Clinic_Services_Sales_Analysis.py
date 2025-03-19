@@ -69,7 +69,7 @@ average_spend_per_patient = filtered_df.groupby("Όνομα Πελάτη")["Αξ
 filtered_df["Μέση Δαπάνη"] = filtered_df["Όνομα Πελάτη"].map(average_spend_per_patient)
 
 st.write("### 📊 Μέση Δαπάνη Ανά Ασθενή")
-st.dataframe(filtered_df[["Όνομα Πελάτη", "Ημερομηνία", "Υπηρεσία", "Μέση Δαπάνη"]])
+st.dataframe(filtered_df[["Όνομα Πελάτη", "Μέση Δαπάνη"]])
 
 # Ανάλυση κατά υπηρεσία
 st.write("### 📈 Ανάλυση Εσόδων ανά Υπηρεσία")
