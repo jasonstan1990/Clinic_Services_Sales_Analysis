@@ -62,14 +62,14 @@ col1, col2 = st.columns(2)
 col1.metric(label="💰 Συνολικά Έσοδα", value=f"€{total_revenue}")
 col2.metric(label="👥 Συνολικοί Πελάτες", value=total_patients)
 
-# Υπολογισμός μέσης δαπάνης ανά πελάτη
-average_spend_per_patient = filtered_df.groupby("Όνομα Πελάτη")["Αξία Υπηρεσίας"].sum() / filtered_df.groupby("Όνομα Πελάτη")["Αξία Υπηρεσίας"].count()
+# Υπολογισμός συνολικής δαπάνης ανά πελάτη
+total_spend_per_patient = filtered_df.groupby("Όνομα Πελάτη")["Αξία Υπηρεσίας"].sum()
 
-# Δημιουργία νέας στήλης με τη μέση δαπάνη
-filtered_df["Μέση Δαπάνη"] = filtered_df["Όνομα Πελάτη"].map(average_spend_per_patient)
+# Δημιουργία νέας στήλης με τη συνολική δαπάνη
+filtered_df["Συνολική Δαπάνη"] = filtered_df["Όνομα Πελάτη"].map(total_spend_per_patient)
 
-st.write("### 📊 Μέση Δαπάνη Ανά Ασθενή")
-st.dataframe(filtered_df[["Όνομα Πελάτη", "Μέση Δαπάνη"]])
+st.write("### 📊 Συνολική Δαπάνη Ανά Ασθενή")
+st.dataframe(filtered_df[["Όνομα Πελάτη", "Συνολική Δαπάνη"]])
 
 # Ανάλυση κατά υπηρεσία
 st.write("### 📈 Ανάλυση Εσόδων ανά Υπηρεσία")
