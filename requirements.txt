@@ -1,7 +1,5 @@
 streamlit
 seaborn
-plotly.graph_objects
-plotly.express
 plotly
 pandas
 numpy
